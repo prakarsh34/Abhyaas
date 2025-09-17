@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from "react";
+import { Link } from "react-router-dom";
 import AOS from "aos";
 import "aos/dist/aos.css";
 import {
@@ -16,12 +17,11 @@ import {
 
 // --- Navigation ---
 const navLinks = [
-  { href: "#features", label: "Features" },
-  { href: "#resources", label: "Resources" },
-  { href: "#stats", label: "Stats" },
-  { href: "#testimonials", label: "Testimonials" },
-  { href: "#pricing", label: "Pricing" },
-  { href: "#faq", label: "FAQ" },
+  { to: "/", label: "Home" },
+  { to: "/resources", label: "Resources" },
+  { to: "/progress", label: "Progress" },
+  { to: "/mocktest", label: "Mock Tests" },  // Changed here
+  { to: "/tips", label: "Tips & Tricks" },
 ];
 
 // --- Company Logos ---
@@ -201,14 +201,18 @@ const Home: React.FC = () => {
         <h1 className="text-3xl font-bold text-blue-600">Abhyaas</h1>
         <nav className="hidden md:flex items-center space-x-8">
           {navLinks.map((link) => (
-            <a key={link.href} href={link.href} className="text-slate-600 hover:text-blue-600">
+            <Link
+              key={link.to}
+              to={link.to}
+              className="text-slate-600 hover:text-blue-600"
+            >
               {link.label}
-            </a>
+            </Link>
           ))}
         </nav>
-        <button className="bg-blue-600 text-white px-5 py-2 rounded-lg font-semibold hover:bg-blue-700">
+        <Link to="/login" className="bg-blue-600 text-white px-5 py-2 rounded-lg font-semibold hover:bg-blue-700">
           Sign In
-        </button>
+        </Link>
       </header>
 
       {/* Hero */}
@@ -219,35 +223,28 @@ const Home: React.FC = () => {
         <p className="text-lg text-slate-600 mb-8 max-w-2xl mx-auto">
           Realistic mock interviews, actionable feedback, measurable growth.
         </p>
-        <button className="bg-blue-600 text-white px-8 py-4 rounded-lg font-semibold hover:bg-blue-700">
+        <Link to="/signup" className="bg-blue-600 text-white px-8 py-4 rounded-lg font-semibold hover:bg-blue-700">
           Start Your Journey 🚀
-        </button>
+        </Link>
       </section>
 
-     {/* Brand Marquee */}
-<section className="bg-slate-50 py-6 overflow-hidden" data-aos="fade-up">
-  <div className="relative flex">
-    <div className="flex space-x-32 animate-marquee text-slate-500 text-xl font-semibold">
-      {companyLogos.map((logo, i) => (
-        <span key={i}>
-          {logo}
-        </span>
-      ))}
-      {/* Spacer to add gap after last logo */}
-      <span className="w-32" aria-hidden="true" />
-    </div>
-    <div className="absolute top-0 flex space-x-32 animate-marquee2 text-slate-500 text-xl font-semibold">
-      {companyLogos.map((logo, i) => (
-        <span key={`dup-${i}`}>
-          {logo}
-        </span>
-      ))}
-      {/* Spacer to add gap after last logo */}
-      <span className="w-32" aria-hidden="true" />
-    </div>
-  </div>
-</section>
-
+      {/* Brand Marquee */}
+      <section className="bg-slate-50 py-6 overflow-hidden" data-aos="fade-up">
+        <div className="relative flex">
+          <div className="flex space-x-32 animate-marquee text-slate-500 text-xl font-semibold">
+            {companyLogos.map((logo, i) => (
+              <span key={i}>{logo}</span>
+            ))}
+            <span className="w-32" aria-hidden="true" />
+          </div>
+          <div className="absolute top-0 flex space-x-32 animate-marquee2 text-slate-500 text-xl font-semibold">
+            {companyLogos.map((logo, i) => (
+              <span key={`dup-${i}`}>{logo}</span>
+            ))}
+            <span className="w-32" aria-hidden="true" />
+          </div>
+        </div>
+      </section>
 
       {/* Features */}
       <section id="features" className="py-20 text-center container mx-auto" data-aos="fade-up">
@@ -354,7 +351,9 @@ const Home: React.FC = () => {
               <h4 className="mt-4 text-2xl font-bold">{p.name}</h4>
               <p className="text-3xl font-extrabold mt-2">{p.price} <span className="text-slate-500 text-base">{p.period}</span></p>
               <ul className="mt-4 space-y-2 text-slate-600">{p.features.map((f) => <li key={f}>✓ {f}</li>)}</ul>
-              <button className="mt-6 w-full bg-blue-600 text-white py-2 rounded-lg">{p.buttonText}</button>
+              <Link to="/signup" className="mt-6 w-full bg-blue-600 text-white py-2 rounded-lg flex justify-center">
+                {p.buttonText}
+              </Link>
             </div>
           ))}
         </div>
@@ -378,7 +377,9 @@ const Home: React.FC = () => {
       {/* Footer */}
       <footer className="bg-slate-900 text-white py-16 text-center" data-aos="fade-up">
         <h3 className="text-3xl font-bold mb-4">Ready to Land Your Dream Job?</h3>
-        <button className="bg-blue-600 px-6 py-3 rounded-lg font-semibold hover:bg-blue-700 mb-8">Get Started</button>
+        <Link to="/signup" className="bg-blue-600 px-6 py-3 rounded-lg font-semibold hover:bg-blue-700 mb-8 inline-block">
+          Get Started
+        </Link>
         <div className="flex justify-center gap-8 mb-6 text-2xl">
           <FiTwitter /><FiLinkedin /><FiInstagram />
         </div>
